@@ -1,6 +1,6 @@
-import sys
-sys.path.append('Calculator/')
-from Caculator import Calculator
+#import sys
+#sys.path.append('Calculator/')
+from Calculator import Calculator
 import unittest
 
 class NotANumber(Exception):
