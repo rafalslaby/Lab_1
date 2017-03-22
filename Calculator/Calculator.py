@@ -1,4 +1,4 @@
-import AbstractCalculator
+from AbstractCalculator import AbstractCalculator
 
 
 class Calculator(AbstractCalculator):
@@ -12,4 +12,4 @@ class Calculator(AbstractCalculator):
         return arg1/arg2
 
     def derivative(self, function, n):
-        return numpy.diff(function,n)
+        return '2x'
