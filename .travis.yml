@@ -2,4 +2,4 @@ language: python
 python:
   - "3.6"
 script:
-  - python CalculatorTest.py
+  - python Lab1/Calculator/CalculatorTest.py
