@@ -1,5 +1,4 @@
-import Calculator
-import numpy
+from Caculator import Calculator
 import unittest
 
 class NotANumber(Exception):
