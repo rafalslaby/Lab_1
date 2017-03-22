@@ -1,3 +1,5 @@
+import sys
+sys.path.append('Calculator/')
 from Caculator import Calculator
 import unittest
 
