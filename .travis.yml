@@ -6,3 +6,4 @@ notifications:
   email: false
 script:
   - python Calculator/CalculatorTest.py
+  - python TicTacToe/BoardTest.py
