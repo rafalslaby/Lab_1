@@ -1,10 +1,12 @@
 # Lab_1
 Python in the enterprise
 
+Python version 3.6
+
 Problem 1 - grep
 
 Problem 2 - word counter
 
 Calculator - basic calculator
 
-TicTacToe - Tic tac toe game simulation with pc
+TicTacToe - tic tac toe game with pc simulation
