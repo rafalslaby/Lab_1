@@ -13,6 +13,7 @@ class Board:
         print('-'*15)
 
     def clean_board(self):
+        self.board = []
         tmp_list = []
         for i in range(self.board_size):
             tmp_list.append('-')
