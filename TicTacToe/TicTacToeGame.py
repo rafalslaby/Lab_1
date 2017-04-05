@@ -52,7 +52,7 @@ class TicTacToeGame:
                         print('Board is full. Nobody won!')
                         break
                     print('PCs turn!')
-                    time.sleep(2)
+                    time.sleep(1)
                     while True:
                         if self.board.insert_symbol(self.playerPC.get_PC_move(), self.playerPC.symbol):
                             break
@@ -65,7 +65,7 @@ class TicTacToeGame:
                         break
                 else:
                     print('PCs turn')
-                    time.sleep(2)
+                    time.sleep(1)
                     while True:
                         if self.board.insert_symbol(self.playerPC.get_PC_move(), self.playerPC.symbol):
                             break
