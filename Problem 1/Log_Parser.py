@@ -22,7 +22,6 @@ class LogParser:
                 #plotting part, search for SUCCESS
                 for i in range(0, len(List)):
                     List[i] //= 100
-                print(List)
                 PlotList=[]
                 for i in range(0, linescounter//100):
                     counter=0
