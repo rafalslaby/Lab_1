@@ -10,6 +10,12 @@ Python 3.6
 
 None
 
+### Usage
+
+```
+python Calculator.py
+```
+
 ### Description
 
 This project is my implementation of basic calculator functions including: addition, subtraction and division
