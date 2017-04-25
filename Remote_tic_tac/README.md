@@ -1,6 +1,6 @@
 # Remote Tic Tac Toe Game
 
-poległem przy instalacji ;/
+Not done yet
 
 ### Prerequisites
 
