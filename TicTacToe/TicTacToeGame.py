@@ -16,7 +16,7 @@ class TicTacToeGame:
     def start_game(self):
         print('-'*15)
         while True:
-            self.player.symbol = str(input('Choose your symbol: x or o'))
+            self.player.symbol = str(input('Choose your symbol: x or o  '))
             if self.player.symbol == 'x':
                 self.playerPC.symbol = 'o'
                 break
