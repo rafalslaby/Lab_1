@@ -10,3 +10,5 @@ Problem 2 - word counter
 Calculator - basic calculator
 
 TicTacToe - tic tac toe game with pc simulation
+
+Remote_tic_tac - remote tic tac toe game with pc via TCP
