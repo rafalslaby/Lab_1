@@ -1,6 +1,6 @@
 # Remote Tic Tac Toe Game
 
-Remote Tic Tac Toe Game with PC
+Remote Tic Tac Toe Game with PC and "more or less"
 
 ### Prerequisites
 
