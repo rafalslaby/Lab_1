@@ -18,10 +18,10 @@ python TicTacToeGame.py
 ```
 second conslose:
 ```
-python Remote_PC.py
+python Remote_player.py
 ```
 
 ### Description
 
 My implementation of Tic Tac Toe on two consoles via TCP.
-I failed with protobuf so i simplified the connection.
+Follow the instructions on second console
