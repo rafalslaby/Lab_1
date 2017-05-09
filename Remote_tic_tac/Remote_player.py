@@ -39,7 +39,7 @@ while 1:
             sm.send_message(sock, message)
 
         if data.type == 4:
-            message.guess = int(input('Give your next guess '))
+            message.guess = int(input('Give your next guess from [0,100]'))
             sm.send_message(sock, message)
 
 
