@@ -1,0 +1,10 @@
+package tic_tac_toe;
+
+message msg {
+  optional int32 type = 1;
+  optional string text = 2;
+  optional int32 x = 3;
+  optional int32 y = 4;
+  optional int32 guess = 5;
+  optional string tab = 6;
+  }
