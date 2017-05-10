@@ -5,6 +5,30 @@ import socket_management as sm
 import protoc_pb2
 
 
+def send_text(connection, msg, text):
+    msg.type = 10
+    msg.text = text
+    sm.send_message(connection, msg)
+
+
+def send_tab(connection, msg, tab):
+    msg.tab = tab
+    msg.type = 2
+    sm.send_message(connection, msg)
+
+
+def event_handler(connection, msg, tab, win_lose_full):
+    send_tab(connection, msg, tab)
+    if win_lose_full == 1:
+        msg.text = '-' * 8 + '\nYou WIN\n' + '-' * 8
+    elif win_lose_full == 2:
+        msg.text = '-' * 8 + '\nHAHA you LOSE!\n' + '-' * 8
+    else:
+        msg.text = '-' * 8 + '\nBoard is full. Nobody won!\n' + '-' * 8
+    msg.type = 10
+    sm.send_message(connection, msg)
+
+
 class TicTacToeGame:
     def __init__(self):
         self.board = Board()
@@ -29,7 +53,7 @@ class TicTacToeGame:
             sm.send_message(connection, msg)
             msg = sm.get_response(connection)
             if msg.type == 3:
-                break
+                return
             if msg.type == 1:
                 while True:
                     msg.type = 1
@@ -53,22 +77,15 @@ class TicTacToeGame:
                 while self.game:
                     if random.random() < 0.5:
                         self.you_go_first = True
-                        msg.type = 10
-                        msg.text = 'You go first!'
+                        send_text(connection, msg, 'You go first!')
                     else:
                         self.you_go_first = False
-                        msg.type = 10
-                        msg.text = 'PC goes first!'
-                    sm.send_message(connection, msg)
+                        send_text(connection, msg, 'PC goes first!')
                     while True:
                         if self.you_go_first:
-                            msg.type = 10
-                            msg.text = 'Your turn!'
-                            sm.send_message(connection, msg)
+                            send_text(connection, msg, 'Your turn!')
                             self.board.print_board()
-                            msg.tab = self.board.board_to_string()
-                            msg.type = 2
-                            sm.send_message(connection, msg)
+                            send_tab(connection, msg, self.board.board_to_string())
                             while True:
                                 msg.type = 3
                                 sm.send_message(connection, msg)
@@ -76,50 +93,28 @@ class TicTacToeGame:
                                 if self.board.insert_symbol([msg.x, msg.y], self.player_symbol):
                                     break
                             self.board.print_board()
-                            msg.tab = self.board.board_to_string()
-                            msg.type = 2
-                            sm.send_message(connection, msg)
+                            # msg.tab = self.board.board_to_string()
+                            # msg.type = 2
+                            # sm.send_message(connection, msg)
                             if self.board.win_check(self.player_symbol):
-                                msg.text = 'You WIN'
-                                msg.type = 10
-                                sm.send_message(connection, msg)
+                                event_handler(connection, msg, self.board.board_to_string(), 1)
                                 self.board.print_board()
-                                msg.tab = self.board.board_to_string()
-                                msg.type = 2
-                                sm.send_message(connection, msg)
                                 break
                             if self.board.is_board_full():
-                                print('Board is full. Nobody won!')
-                                msg.text = 'Board is full. Nobody won!'
-                                msg.type = 10
-                                sm.send_message(connection, msg)
+                                event_handler(connection, msg, self.board.board_to_string(), 3)
                                 self.board.print_board()
-                                msg.tab = self.board.board_to_string()
-                                msg.type = 2
-                                sm.send_message(connection, msg)
                                 break
 
                             while True:
                                 if self.board.insert_symbol([random.randint(0, 2), random.randint(0, 2)], self.playerPCsymbol):
                                     break
                             if self.board.win_check(self.playerPCsymbol):
-                                msg.text = 'HAHA You LOOSE!'
-                                msg.type = 10
-                                sm.send_message(connection, msg)
+                                event_handler(connection, msg, self.board.board_to_string(), 2)
                                 self.board.print_board()
-                                msg.tab = self.board.board_to_string()
-                                msg.type = 2
-                                sm.send_message(connection, msg)
                                 break
                             if self.board.is_board_full():
-                                msg.text = 'Board is full. Nobody won!'
-                                msg.type = 10
-                                sm.send_message(connection, msg)
-                                print('Board is full. Nobody won!')
+                                event_handler(connection, msg, self.board.board_to_string(), 3)
                                 self.board.print_board()
-                                msg.tab = self.board.board_to_string()
-                                msg.type = 2
-                                sm.send_message(connection, msg)
                                 break
                         else:
                             while True:
@@ -127,32 +122,17 @@ class TicTacToeGame:
                                                             self.playerPCsymbol):
                                     break
                             if self.board.win_check(self.playerPCsymbol):
-                                msg.text = 'HAHA You LOOSE!'
-                                msg.type = 10
-                                sm.send_message(connection, msg)
+                                event_handler(connection, msg, self.board.board_to_string(), 2)
                                 self.board.print_board()
-                                msg.tab = self.board.board_to_string()
-                                msg.type = 2
-                                sm.send_message(connection, msg)
                                 break
                             if self.board.is_board_full():
-                                msg.text = 'Board is full. Nobody won!'
-                                msg.type = 10
-                                sm.send_message(connection, msg)
-                                print('Board is full. Nobody won!')
+                                event_handler(connection, msg, self.board.board_to_string(), 3)
                                 self.board.print_board()
-                                msg.tab = self.board.board_to_string()
-                                msg.type = 2
-                                sm.send_message(connection, msg)
                                 break
 
-                            msg.type = 10
-                            msg.text = 'Your turn!'
-                            sm.send_message(connection, msg)
+                            send_text(connection, msg, 'Your turn!')
                             self.board.print_board()
-                            msg.tab = self.board.board_to_string()
-                            msg.type = 2
-                            sm.send_message(connection, msg)
+                            send_tab(connection, msg, self.board.board_to_string())
                             while True:
                                 msg.type = 3
                                 sm.send_message(connection, msg)
@@ -160,39 +140,36 @@ class TicTacToeGame:
                                 if self.board.insert_symbol([msg.x, msg.y], self.player_symbol):
                                     break
                             self.board.print_board()
-                            msg.tab = self.board.board_to_string()
-                            msg.type = 2
-                            sm.send_message(connection, msg)
+                            # msg.tab = self.board.board_to_string()
+                            # msg.type = 2
+                            # sm.send_message(connection, msg)
                             if self.board.win_check(self.player_symbol):
-                                msg.text = 'You WIN'
-                                msg.type = 10
-                                sm.send_message(connection, msg)
+                                event_handler(connection, msg, self.board.board_to_string(), 1)
                                 self.board.print_board()
-                                msg.tab = self.board.board_to_string()
-                                msg.type = 2
-                                sm.send_message(connection, msg)
                                 break
                             if self.board.is_board_full():
-                                print('Board is full. Nobody won!')
-                                msg.text = 'Board is full. Nobody won!'
-                                msg.type = 10
-                                sm.send_message(connection, msg)
+                                event_handler(connection, msg, self.board.board_to_string(), 3)
                                 self.board.print_board()
-                                msg.tab = self.board.board_to_string()
-                                msg.type = 2
-                                sm.send_message(connection, msg)
                                 break
+                    self.board.clean_board()
+                    break
             else:
-                number = random.randint(0, 100)
+                msg = protoc_pb2.msg()
+                msg.type = 4
+                sm.send_message(connection, msg)
+                msg = sm.get_response(connection)
+                if msg.x > msg.y:
+                    send_text(connection, msg, 'x > y')
+                    break
+                number = random.randint(msg.x, msg.y)
                 print(number)
                 while 1:
-                    msg = protoc_pb2.msg()
-                    msg.type = 4
+                    msg.type = 5
                     sm.send_message(connection, msg)
                     msg = sm.get_response(connection)
                     msg.type = 10
                     if msg.guess == number:
-                        msg.text = 'guessed it'
+                        msg.text = '-' * 8 + 'You guessed it' + '-' * 8
                         sm.send_message(connection, msg)
                         break
                     elif msg.guess > number:
