@@ -20,6 +20,8 @@ while 1:
             print(data.text)
             message.type = int(input())
             sm.send_message(sock, message)
+            if message.type == 3:
+                break
         if data.type == 1:
             print(data.text)
             message.text = str(input())
@@ -39,9 +41,13 @@ while 1:
             sm.send_message(sock, message)
 
         if data.type == 4:
-            message.guess = int(input('Give your next guess from [0,100]'))
+            message.x = int(input('In range from: '))
+            message.y = int(input('to: '))
             sm.send_message(sock, message)
 
+        if data.type == 5:
+            message.guess = int(input('Give your next guess  '))
+            sm.send_message(sock, message)
 
         if data.type == 10:
             print(data.text)
